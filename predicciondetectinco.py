@@ -7,12 +7,9 @@ de habitaciones de hotel.
 
 import pickle
 import pandas as pd
-import numpy as np
 import sys
 import os
-import time
 from  model_development import TextPreprocessor
-from tqdm import tqdm
 
 def load_model(model_path):
     """Carga el modelo entrenado"""
@@ -26,45 +23,20 @@ def predict_room_type(text, model_data):
     inv_categories = model_data['inv_categories']
 
     # Realizar predicción
-    prediction = best_model.predict([text])
     category_id = best_model.predict([text])[0]
     category = inv_categories[int(category_id)]
-    confidence = getconfidence(best_model, text)
 
     return {
         'category_id': int(category_id),
-        'category': category,
-        'confidence': round(float(confidence), 4)
+        'category': category
     }
-def getconfidence(best_model, text):
-        """Predice la categoría con nivel de confianza"""
-
-
-        # Calcular confianza (esto varía según el tipo de modelo)
-        confidence = 0.0
-        try:
-            # Intentar obtener probabilidades de decisión
-            if hasattr(best_model, 'predict_proba'):#LogisticRegression, naives Bayes ,RandomForestClassifier,SGDClassifier (log_loss)
-                # Para modelos probabilísticos
-                proba = best_model.predict_proba([text])
-                confidence = np.max(proba)
-            elif hasattr(best_model, 'decision_function'): #LogisticRegression,LinearSVC,SGDClassifier (log_loss),PassiveAggressiveClassifier
-                # Para SVM y algunos otros
-                decision_values = best_model.decision_function([text])
-                if len(decision_values.shape) > 1:
-                    max_decision = np.max(decision_values)
-                    confidence = 1 / (1 + np.exp(-max_decision))  # Sigmoid para normalizar
-                else:
-                    confidence = 1 / (1 + np.exp(-decision_values[0]))
-
-        except:
-            # Si falla, usar un valor por defecto
-            confidence = 0.5
-
-        return confidence
 
 def main():
-    start_time = time.time()
+    """Función principal para clasificar habitaciones con deteccion de mal clasificados"""
+    # se neceita que el archivo venga con  datos ya etiquetados
+    #debe incluirse la columna categoria_real
+
+    print (len(sys.argv),":", sys.argv[0] )
     """Función principal para clasificar habitaciones"""
     # Verificar argumentos
     if len(sys.argv) < 2:
@@ -97,35 +69,66 @@ def main():
             if 'nombre' not in df.columns:
                 print("Error: El archivo CSV debe tener una columna 'nombre' con las descripciones")
                 return
-            print(f"Clasificando descripciones...{len(df)} rows.")
-            print(f'\n')
 
             # Realizar predicciones
             results = []
+            correct_count = 0
+            incorrect_examples = []
 
-            #for idx, row in df.iterrows():            #Usamos la librería tqdm, que muestra una barra de progreso en loops
-            for idx, row in tqdm(df.iterrows(), total=len(df), desc="Procesando registros"):
+            for idx, row in df.iterrows():
                 prediction = predict_room_type(row['nombre'], model_data)
-                results.append({
+                result=({
                     'id': row.get('id', idx),
                     'nombre': row['nombre'],
                     'category_id': prediction['category_id'],
-                    'category': prediction['category'],
-                    'confidence': prediction['confidence']
+                    'category': prediction['category']
                 })
+
+                # Si el CSV tiene una columna 'category_real', comparar con la predicción
+                if 'category_real' in df.columns:
+                    result['category_real'] = row['category_real']
+                    if str(row['category_real']).upper() == prediction['category'].upper():
+                        result['correct'] = True
+                        correct_count += 1
+                    else:
+                        result['correct'] = False
+                        incorrect_examples.append(result)
+
+                results.append(result)
 
             # Guardar resultados
             results_df = pd.DataFrame(results)
             output_path = 'clasificacion_habitaciones.csv'
             results_df.to_csv(output_path, index=False)
-            print(f"\nClasificación completada.Total ={len(results_df)} registros.\nResultados guardados en {output_path}")
+            print(f"Clasificación completada. Resultados guardados en {output_path}")
 
-            # Identificar casos de baja confianza para revisión
-            low_confidence_value=0.6
-            low_confidence_path='revisar_clasificaciones_lowconfidence.csv'
-            low_confidence = results_df[results_df['confidence'] < low_confidence_value]
-            low_confidence.to_csv(low_confidence_path, index=False)
-            print(f"\nRevisar Clasificaciones con low Confidence < {low_confidence_value} en: {low_confidence_path}")
+            # Mostrar estadísticas si hay categorías reales
+            if 'category_real' in df.columns:
+                total = len(df)
+                accuracy = correct_count / total * 100
+                print(f"\nEstadísticas de clasificación:")
+                print(f"Total de registros: {total}")
+                print(f"Correctamente clasificados: {correct_count} ({accuracy:.2f}%)")
+                print(f"Incorrectamente clasificados: {total - correct_count} ({100 - accuracy:.2f}%)")
+
+                # Guardar ejemplos incorrectos
+                if incorrect_examples:
+                    incorrect_df = pd.DataFrame(incorrect_examples)
+                    incorrect_path = 'clasificaciones_incorrectas.csv'
+                    incorrect_df.to_csv(incorrect_path, index=False)
+                    print(f"\nEjemplos mal clasificados guardados en {incorrect_path}")
+
+                    # Mostrar algunos ejemplos
+                    print("\nAlgunos ejemplos de clasificaciones incorrectas:")
+                    for i, example in enumerate(incorrect_examples[:5]):  # Mostrar hasta 5 ejemplos
+                        print(f"Ejemplo {i+1}:")
+                        print(f"  Texto: '{example['nombre']}'")
+                        print(f"  Categoría real: {example['category_real']}")
+                        print(f"  Categoría predicha: {example['category']}")
+
+                    if len(incorrect_examples) > 5:
+                        print(f"\n... y {len(incorrect_examples) - 5} ejemplos más en {incorrect_path}")
+
 
         except Exception as e:
             print(f"Error al procesar el archivo CSV: {e}")
@@ -135,10 +138,6 @@ def main():
         prediction = predict_room_type(description, model_data)
         print(f"Descripción: '{description}'")
         print(f"Clasificación: {prediction['category']} (ID: {prediction['category_id']})")
-        print(f"Confidence: {prediction['confidence']} ")
-
-    elapsed_time = time.time() - start_time
-    print(f"Tiempo total de ejecución: {elapsed_time:.2f} segundos")
 
 if __name__ == "__main__":
     main()
