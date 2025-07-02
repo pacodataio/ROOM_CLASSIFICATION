@@ -1,0 +1,47 @@
+Análisis de Datos y Conocimiento del Dominio
+El análisis de datos no solo requiere conocer el origen y calidad de los datos, sino también aplicar técnicas para eliminar ruido cuando sea necesario.
+
+Para una correcta interpretación, es fundamental el conocimiento del dominio (Domain Knowledge). No basta con habilidades técnicas: sin comprender el contexto del negocio, los datos pueden ser mal interpretados, afectando la toma de decisiones y dificultando la transferencia de conocimiento a cualquier sistema de IA o solución informática.
+
+Por ejemplo, una descripción como "ESTÁNDAR JUNIOR SUITE" podría generar confusión si no se conoce el significado dentro del negocio. Un sistema automatizado podría clasificarlo incorrectamente como suite o estándar room, cuando en realidad hace referencia a una Junior Suite.
+
+Para evitar estos errores, es recomendable implementar:
+
+Reglas de negocio claras para clasificaciones consistentes.
+
+Procesamiento de lenguaje natural (NLP) para normalizar términos y reducir ambigüedad.
+
+Correcciones basadas en contexto, considerando cómo la empresa define y usa estos conceptos.
+
+"Estándar twin suite" -> "STANDARD room"
+"KING PATIO VIEW ROOM"-> "otros"
+"LARGE BEDROOM WITH DOUBLE BED AND BALCONY, WITH VIEW OF THE CITY OF LISBON" -> LARGE
+"BEDROOM WITH DOUBLE BED AND BALCONY, WITH VIEW OF THE CITY OF LISBON" (travelgate lo clasifica como default, no mira las camas) debería ser standard
+
+HABITACION DOCBLE DE LUJO ??DOBLE O DELUXE
+HABITACIÓN DOBLE USO INDIVIDUAL VISTA CIUDAD PREMIUM PREMIER
+HABITACIÓN DOBLE USO INDIVIDUAL VISTA CIUDAD PREMIUM PREMIER
+HABITACIÓN FAMILIAR LUJO,
+HABITACIÓN INDIVIDUAL LUJO BALCÓN O TERRAZA
+,LUXURY ROOM 1 KING BED -> Deluxe
+LUXURY DUPLEX SUITE WITH PANORAMIC RIVER  CITY AND CASTLE VIEW -> suite
+
+
+ROOM DESCRIPTIONS:
+Suite:
+A suite is generally larger and offers distinct living and sleeping areas, often with separate rooms
+Ideal for longer stays, families, or those needing more space and privacy, or for special occasions. 
+
+Junior Suite:
+Junior suites are typically smaller, with a combined living and sleeping area, sometimes with a partial separation like a screen or a change in furniture arrangement. Junior suites offer a step up from standard rooms but are less expensive and spacious than full suites. 
+A good option for those seeking more space and comfort than a standard room without the cost of a full suite, or for shorter stays.
+Key Differences: (JUNIOR SUITE vs SUITE)
+Size and Layout:
+Suites are larger, often with separate rooms for living, sleeping, and sometimes dining or kitchen areas. Junior suites have a combined living and sleeping area, sometimes with a partial separation like a sofa or screen. 
+Separation:
+Suites offer a more distinct separation between living and sleeping spaces, sometimes with a door. Junior suites may have a semi-separated area, but it's not a separate room. 
+Price:
+Suites are generally more expensive than junior suites. 
+Amenities:
+While both offer amenities beyond a standard room, suites may have more luxurious features and more space for relaxation and work.  
+

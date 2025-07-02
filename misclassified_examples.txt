@@ -1,0 +1,95 @@
+EJEMPLOS MAL CLASIFICADOS
+=======================
+
+Texto: 'SUITE VISTA MAR LUJO CON COCINA 1 DORMITORIO'
+  Categoría real: SUITE (ID: 4)
+  Categoría predicha: DELUXE ROOM (ID: 7)
+
+Texto: 'HABITACIÓN INDIVIDUAL LUJO PREMIER'
+  Categoría real: PREMIUM ROOM (ID: 6)
+  Categoría predicha: DELUXE ROOM (ID: 7)
+
+Texto: 'HABITACIÓN ESTÁNDAR, 2 CAMAS DOBLES, NO FUMADORES'
+  Categoría real: DOUBLE ROOM (ID: 11)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'DOUBLE/TWIN ALFAMA (2A) NON REFUNDABLE'
+  Categoría real: FAMILY ROOM (ID: 1)
+  Categoría predicha: DOUBLE ROOM (ID: 11)
+
+Texto: 'DOBLE DOBLE CON BALCON ESTANDARD'
+  Categoría real: STANDARD ROOM (ID: 12)
+  Categoría predicha: DOUBLE ROOM (ID: 11)
+
+Texto: 'STANDARD DOUBLE STUDIO (FULL DOUBLE BED)'
+  Categoría real: STUDIO (ID: 2)
+  Categoría predicha: DOUBLE ROOM (ID: 11)
+
+Texto: 'DELUXE DOUBLE ROOM, ENSUITE , 1 KING BED + '
+  Categoría real: SUITE (ID: 4)
+  Categoría predicha: DELUXE ROOM (ID: 7)
+
+Texto: 'HABITACION COMPARTIDA SHARED ROOM QUADRUPLE ROOM 1 DOUBLE BED/2 TWIN BEDS AND 1 TWIN BUNK BEDTRP'
+  Categoría real: SHARED ROOM (ID: 3)
+  Categoría predicha: QUADRUPLE ROOM (ID: 9)
+
+Texto: 'HABITACIÓN 2 CAMAS DOS CAMAS'
+  Categoría real: STANDARD ROOM (ID: 12)
+  Categoría predicha: DOUBLE ROOM (ID: 11)
+
+Texto: 'STD WITH 1 KING SIZE BED'
+  Categoría real: STUDIO (ID: 2)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'LUXURY APARTMENT, ENSUITE,1 KING BED,NONSMOKING'
+  Categoría real: APARTMENT (ID: 0)
+  Categoría predicha: SUITE (ID: 4)
+
+Texto: 'DOUBLE SUPERIEURE VUE JARDIN + SPECIAL DISCOUNT'
+  Categoría real: SUPERIOR ROOM (ID: 8)
+  Categoría predicha: DOUBLE ROOM (ID: 11)
+
+Texto: 'HABITACIÓN ESTÁNDAR, 2 CAMAS DOBLES'
+  Categoría real: DOUBLE ROOM (ID: 11)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'KRAZY SUPER SAVER   KINGSIZE BED'
+  Categoría real: SUPERIOR ROOM (ID: 8)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'ROOM WITH SUPPLETORY BED'
+  Categoría real: SUPERIOR ROOM (ID: 8)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'SHARED ROOM (DORMITORY)   SUPERIOR'
+  Categoría real: SUPERIOR ROOM (ID: 8)
+  Categoría predicha: SHARED ROOM (ID: 3)
+
+Texto: 'CUADRUPLE STANDARD'
+  Categoría real: QUADRUPLE ROOM (ID: 9)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'JUNIORSUITE   PROMOTION'
+  Categoría real: SUITE (ID: 4)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'STDDBV'
+  Categoría real: STUDIO (ID: 2)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'QUARTO DUPLO CLÁSSICO PARA 1 PESSOA, VARANDA 1 CAMA DE CASAL E 2 CAMAS INDIVIDUAIS'
+  Categoría real: CLASSIC ROOM (ID: 13)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'VISITA PREMIUM OK CAST TERRAZA GENERAL'
+  Categoría real: PREMIUM ROOM (ID: 6)
+  Categoría predicha: STANDARD ROOM (ID: 12)
+
+Texto: 'DOUBLE/TWIN ALFAMA (2A)'
+  Categoría real: FAMILY ROOM (ID: 1)
+  Categoría predicha: DOUBLE ROOM (ID: 11)
+
+Texto: 'HABITACIÓN INDIVIDUAL LUJO PREMIUM'
+  Categoría real: PREMIUM ROOM (ID: 6)
+  Categoría predicha: DELUXE ROOM (ID: 7)
+

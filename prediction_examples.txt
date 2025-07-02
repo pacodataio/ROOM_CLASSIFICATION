@@ -1,0 +1,18 @@
+EJEMPLOS DE PREDICCIÓN
+=====================
+
+Texto: 'DELUXE KING ROOM'
+Predicción: DELUXE ROOM (ID: 7)
+
+Texto: 'APARTAMENTO DE 2 DORMITORIOS'
+Predicción: APARTMENT (ID: 0)
+
+Texto: 'STANDARD TWIN ROOM'
+Predicción: STANDARD ROOM (ID: 12)
+
+Texto: 'JUNIOR SUITE CON VISTAS AL MAR'
+Predicción: JUNIOR SUITE (ID: 5)
+
+Texto: 'HABITACIÓN FAMILIAR PARA 4 PERSONAS'
+Predicción: FAMILY ROOM (ID: 1)
+

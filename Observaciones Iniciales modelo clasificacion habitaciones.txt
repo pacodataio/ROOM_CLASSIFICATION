@@ -1,0 +1,111 @@
+1. Blas estas son las categorías que Irene estuvo considerando. Observo alguna inconsistencias en la clasificación inicial, classic podría ser fácilmente estándar, superior podría ser  premium ?, junior suite podría ser suite?..
+
+categories = {
+            "APARTMENT": 0,
+            "STANDARD ROOM": 1,
+            "DOUBLE ROOM": 2,
+            "TRIPLE ROOM": 3,
+            "CLASSIC ROOM": 4,
+            "SUPERIOR ROOM": 5,
+            "DELUXE ROOM": 6,
+            "PREMIUM ROOM": 7,
+            "JUNIOR SUITE": 8,
+            "SUITE": 9,
+            "QUADRUPLE ROOM": 10,
+            "STUDIO": 11,
+            "SHARED ROOM": 12,
+            "FAMILY ROOM": 13
+        }  
+2. DATOS (17/06/2025) 404K ROWS: Con respecto a la tabla tipos_habitacion, aun cuando filtras por id_agencia, no todos los datos están relacionado solo con habitaciones, alguno de ellos son entradas a algún tipo de recreación, billetes de transporte, seguros, etc.
+
+** Hay que considerar   la calidad de los datos de entrada para el éxito del modelo de IA, revisando ligeramente he podido observar los siguiente. Sugiero una limpieza de datos antes de cargar los datos en el modelo.
+
+id_agencia , tipos de datos, cantidad de registros
+12 rooms/tours 15 rows
+14 (ROOM/ENTRADS/TOURS/BUS), 85 rows
+20 (TOURS/BILLETES/), 99 rows
+23 (BILLETES) 7 rows
+29 ROOMS/TOUR 300 ROWS
+30 (ROOMS/SEGUROS/TOURS/CRUCEROS/) 22 rows
+31 ROOMS 62krows
+33 ROOMS 12k rows
+42 (TOUR/BILLETES)
+45 (ROOMS/sEGUROS)
+46 (tours)
+57 (ROOMS)
+60 (nO ROOMS)
+61 (ROOMS) 33K ROWS
+62  (rooms) 30K ROWS
+63 -ROOMS. 12.5K ROWS
+64 ROOMS. 6K ROWS
+67 ROOMS 57.6K ROWS
+69 ROOMS 400 ROWS
+70 ROOMS 2300 ROWS
+74 ROOMS 10K ROWS
+75 ROOMS 1120 ROWS
+76 ROOMS 11.6K ROWS
+80 BILLETES 140 ROWS
+81 ROOMS 4K ROWS
+
+3. AMBIGUEDADES en las descripciones. A continuación podéis observar lagunas descripciones ejemplo que presentar un caso de ambigüedad al momento de clasificar, considerando las clasificaciones en el punto 1
+
+APARTMENT PREMIUM WITH VIEWS 		( apartment o suite?)
+APARTMENT SUPERIOR WITH VIEWS		(apartment o superior?)
+APARTMENT JUNIOR SUITE 			(aparment, junior suite o suite?)
+APARTMENT T1 STANDARD 			(apartment o standard?)
+DELUXE ROOM   TWIN BED  		(Deluxe o doble?) 
+DELUXE ROOM  DOUBLE (Deluxe o doble?)   (DELUXE O DOBLE?)
+APARTAMENTO FAMILIAR 2 QUARTOS		(apartment, family o doble?)
+2 TWIN BEDS  PREMIUM OCEAN FRONT HIGH FLOOR  NO	(dobleo o premium?)
+2 TWIN BEDS DELUXE SMOKING			(doble o deluxe?)
+3 BEDROOM STANDARD APARTMENT			(triple o standard?)
+3 BEDROOMS CLUB PENTHOUSE APARTMENT		(triple o apartment?)
+CLASSIC DOUBLE MONTECITORIO VIEW		(classic o doble?)
+
+4. Todas estas descripciones que no dicen nada, como se clasifican? estandard? classic?, o alguna otra categoria "unknow"
+CARIBBEAN GOLD2/5 (PRIMERAS PLANTAS)AD BAR
+CARIBBEAN GOLD2/5 (PRIMERAS PLANTAS)AD TARIFA SEGU...
+CARIBBEAN GOLD2/5 (PRIMERAS PLANTAS)MP BAR
+CARIBBEAN GOLD2/5 (PRIMERAS PLANTAS)MP TARIFA SEGU...
+03 EXECUTIVE KING    NO REEMBOLSABLE
+CORAL VILLAGE
+CHAPON I 3 CAMAS KING SIZE <U>NON REFUNDABLE</U> + PREÇO PARA MEMBROS: 10%
+
+5. He hado un vistazo al modelo que tiene travelgate,que hace los mismo queestamos intenando hacer , pero claro no tenemos acceso al codigo de mantenimiento, y no podemos saber el mapeo que utilizaron para clasificar (descripsion->caregoria), por lo que no podemos depender de ese modelo. pero lo que si se puede ver es las categorias que esta usando, que a lo mejor nos sirven como  punto de partida.
+"id2label": {
+    "0": "deluxe",
+    "1": "comfort",
+    "2": "small",
+    "3": "budget",
+    "4": "premier",
+    "5": "large",
+    "6": "standard",
+    "7": "privilege",
+    "8": "classic",
+    "9": "club",
+    "10": "executive",
+    "11": "traditional",
+    "12": "vip",
+    "13": "prestige",
+    "14": "royal",
+    "15": "superior",
+    "16": "economy",
+    "17": "premium",
+    "18": "junior",
+    "19": "basic",
+    "20": "grand",
+    "21": "presidential",
+    "22": "senior",
+    "23": "default",
+    "24": "business"
+
+
+6.En el modelo que estoy trabajando, esto intentando que el modelo sea capaz de detectar unos patrones y a partir de ahi clasificar con la categorías que queremos, pero es importante tener una buena calidad de datos. La ota posibilidad es hacer una clasificacion manual inicial de un0s 5000 registros, aunque cuanto mas registros, mejor seria  la precisión. De cualquier modo terminare con el modelos que estoy trabajando y si fuera necesario iría por la segunda opción
+
+7. De momento los resultados van un documento cvs o hay alguna tabla para ello?
+
+
+
+
+**No tengo Word aquí, así que no puedo editar el documento como toca. Lo siento 
+

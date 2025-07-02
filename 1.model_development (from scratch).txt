@@ -1,0 +1,5 @@
+1.model_development (from scratch)   ### esto genera el modelo room_classifier-model.pkl
+2. predict_room.py --file archivo_habitaciones.cvs ##esto ejecuta el modelo room-classifier_mode.pkl
+3.
+
+

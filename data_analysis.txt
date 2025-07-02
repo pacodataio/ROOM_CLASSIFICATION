@@ -1,0 +1,21 @@
+ANÁLISIS DE DATOS DE HABITACIONES DE HOTEL
+=========================================
+
+Total de registros analizados: 9213
+Distribución de idiomas: {'English': 8652, 'Spanish': 561}
+
+Distribución de palabras clave: Counter({'DOUBLE': 2278, 'UNKNOWN': 2118, 'SUPERIOR': 1311, 'SUITE': 1258, 'STANDARD': 1088, 'DELUXE': 932, 'CLASSIC': 545, 'PREMIUM': 430, 'FAMILY': 413, 'APARTMENT': 394, 'QUADRUPLE': 368, 'JUNIOR SUITE': 277, 'TRIPLE': 223, 'STUDIO': 200, 'SHARED': 198})
+
+Estadísticas de longitud de descripciones:
+count    9213.000000
+mean       47.058504
+std        28.796227
+min         3.000000
+25%        26.000000
+50%        39.000000
+75%        60.000000
+max       182.000000
+Name: desc_length, dtype: float64
+
+Descripciones con información de tarifa: 840 (9.1%)
+Descripciones con información de cama: 4655 (50.5%)

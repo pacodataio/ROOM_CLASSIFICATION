@@ -1,0 +1,29 @@
+1. Clasificador basado en reglas (línea base)
+Tipo: Enfoque heurístico / sistema experto
+Descripción:
+Este modelo no es estadístico ni basado en aprendizaje automático, sino que usa reglas definidas manualmente (por ejemplo, “si el texto contiene la palabra ‘gratis’, clasifícalo como spam”). Sirve como una línea base simple para comparar contra modelos más sofisticados.
+
+2. Naive Bayes con TF-IDF
+Tipo: Modelo probabilístico
+Descripción:
+Naive Bayes es un clasificador estadístico que asume independencia condicional entre características. TF-IDF transforma el texto en una representación numérica (vector), y luego Naive Bayes calcula las probabilidades para cada clase dada esa representación.
+Ventaja: Rápido y eficiente con textos.
+
+3. Regresión Logística con TF-IDF
+Tipo: Modelo lineal de clasificación
+Descripción:
+La regresión logística predice la probabilidad de una clase (por ejemplo, 0 o 1) usando una combinación lineal de las características. Al usar TF-IDF, cada palabra del texto tiene un peso y el modelo aprende cómo estos pesos influyen en la clasificación.
+Ventaja: Generalmente más preciso que Naive Bayes para tareas de clasificación de texto.
+
+4. Random Forest con TF-IDF
+Tipo: Ensamble de árboles de decisión
+Descripción:
+Random Forest combina múltiples árboles de decisión entrenados sobre diferentes subconjuntos de datos y características. Es un modelo no lineal que puede capturar relaciones complejas entre las características del texto representadas mediante TF-IDF.
+Ventaja: Robusto y maneja bien datos ruidosos.
+
+5. SVM Lineal con TF-IDF
+Tipo: Modelo de clasificación lineal basado en márgenes
+Descripción:
+Un SVM (Support Vector Machine) busca el hiperplano que mejor separa las clases. Al ser lineal y usar TF-IDF, encuentra la combinación óptima de palabras que separa las clases con el mayor margen posible.
+Ventaja: Muy eficaz en tareas de clasificación de texto, especialmente cuando el número de características (palabras) es grande.
+

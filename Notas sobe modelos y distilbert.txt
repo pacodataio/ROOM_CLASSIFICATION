@@ -1,0 +1,224 @@
+Notas sobe el modelo de Calsificaciones de habitaciones:
+1. aprendizaje iNCREMENTAL:
+	COMO ENTRENAR CONTINUAMENTE EL MODELO CON NUEVOS DATOS. el MODLEO SE ENTRENA CON UN CONJUNTO DE DTOS INICIALES Y QUEREMOS QUE EL MODELO ISGA APRENDIENDO Y ADPATANDOSE A MEDIDA QUE LE PROPORCIONAMOS MAS INFORMACION, PERO COMO LO LOGRAMOS SIN QUE OLVIDE LO APRENDIDO?. pARA ESTO EXISTEN ALGORITMOS DE PARENDIZAJE INCRMENETAL COMO:
+- mAQUINA DE VECTORES CON SOPORTES INCREMENTALES
+-REGLAS DE DECISION INCREMENTALES
+-ARBOLS DE DECISION INCREMENTALES COMO id4, ID5r Y jaNET
+-REDES NEURONALES ARTIFICIALES COMO RBF Y fUZZY art
+- mODELOS DE APRENDIZAJE PROBABILISITICO COMO tOPOart Y igng
+
+
+
+What are the most common techniques for retraining machine learning models?
+https://www.linkedin.com/advice/3/what-most-common-techniques-retraining-machine-learning-ynfof?lang=es
+
+
+1 Incremental learning
+2 Batch learning
+3 Transfer learning - fine tunning
+4 Active learning
+5 Reinforcement learning
+6 Here’s what else to consider
+
+
+
+**Embedding : es el proceso de representar numéricamente (generalmente un vector) un grupo de datos de entrada como imágenes o texto.
+	En el caso de BERt, es la representación vectorial de un texto
+BERT Base
+Tamaño del vector por token: 768 dimensiones
+Número de capas (transformer blocks): 12
+Número de cabezas de atención: 12
+Tamaño total del modelo: ~110 millones de parámetros
+
+🔹 BERT Large
+Tamaño del vector por token: 1024 dimensiones
+Número de capas (transformer blocks): 24
+Número de cabezas de atención: 16
+Tamaño total del modelo: ~340 millones de parámetros
+
+🔹 DISTILBERT
+Tamaño del vector por token: 768 dimensiones
+Número de capas (transformer blocks): 6
+Número de cabezas de atención: 12
+Tamaño total del modelo: ~66 millones de parámetros
+60% más rápido que BERT
+Precisión	—	~97% del rendimiento de BERT Base
+
+**DISTILLATION:(destilación) Es una tecnica para hacer modelos mas pequeños y rapidos sin perder mucha precisión.
+
+
+
+DISTILBERTFOR SEQUENCE:
+DistilBertForSequenceClassification es un modelo con arquitectura específica para tareas de clasificación de texto.
+Consiste en tomar el modelo base DistilBERT y agregarle una capa extra de clasificación (una capa lineal).
+Esta arquitectura se implementa mediante una clase llamada DistilBertForSequenceClassification dentro de la librería Transformers de Hugging Face.
+
+✅ 2. ¿Entonces qué es una arquitectura de tarea?
+Piensa así:
+DistilBERT base = motor del auto
+DistilBERT + tarea (como clasificación) = auto completo con volante, ruedas, carrocería...
+Lo que se llama una arquitectura (como DistilBertForSequenceClassification) es tomar ese motor base y agregarle una parte final que hace una tarea concreta.
+
+
+
+¿Qué arquitecturas de distilbert existe  existen?
+A partir del modelo base, Hugging Face ofrece distintas estructuras listas para tareas comunes:
+Clase de Hugging Face	¿Para qué sirve?
+DistilBertModel	Solo extrae vectores del texto (sin tarea)
+DistilBertForSequenceClassification	Clasificar frases (positivo/negativo, spam, etc.)
+DistilBertForQuestionAnswering	Responder preguntas (tipo SQuAD)
+DistilBertForTokenClassification	NER (entidades por palabra)
+DistilBertForMaskedLM	Rellenar palabras faltantes
+
+🧩 Conclusión clara:
+✅ El modelo base es solo el "entendedor de lenguaje".
+
+✅ Las arquitecturas añaden una "tarea específica" encima del modelo base.
+
+✅ Tú puedes elegir qué arquitectura usar según lo que necesites hacer.
+
+DistilBertForSequenceClassification
+├── distilbert (modelo base)
+└── classifier (capa lineal: transforma el embedding en clases)
+
+from transformers import DistilBertForSequenceClassification
+
+model = DistilBertForSequenceClassification.from_pretrained(
+    "distilbert-base-uncased-finetuned-sst-2-english"
+)
+
+🔹 1. distilbert-base-uncased
+Idioma: Inglés
+
+Tokenización: Uncased → ignora mayúsculas y minúsculas ("Apple" = "apple")
+
+Entrenamiento: Preentrenado con los mismos datos que BERT (BookCorpus + English Wikipedia)
+
+Dimensiones del embedding: 768
+
+Capas: 6 (la mitad de BERT Base)
+
+Parámetros: ~66 millones
+
+Tarea: General-purpose (no afinado para ninguna tarea específica)
+
+📦 Ver en Hugging Face
+
+🔹 2. distilbert-base-cased
+Idioma: Inglés
+
+Tokenización: Cased → distingue mayúsculas ("Apple" ≠ "apple")
+
+Tarea: General-purpose
+
+Uso recomendado: Cuando la distinción entre mayúsculas y minúsculas es importante (por ejemplo, en NER)
+
+📦 Ver en Hugging Face
+
+🔹 3. distilbert-base-multilingual-cased
+Idiomas: Multilingüe (104 idiomas, incluyendo español, francés, alemán, etc.)
+
+Tokenización: Cased
+
+Basado en: mBERT (BERT multilingüe de Google)
+
+Uso recomendado: Para tareas multilingües o idiomas distintos del inglés
+
+Tamaño: Similar a los anteriores (~66M parámetros)
+
+📦 Ver en Hugging Face
+
+💡 ¿Qué NO son modelos base?
+Modelos como:
+
+distilbert-base-uncased-finetuned-sst-2-english (fine-tuned para análisis de sentimientos)
+
+distilbert-base-cased-distilled-squad (fine-tuned para QA)
+
+…no son modelos "base", sino versiones afinadas (fine-tuned) para tareas específicas.
+
+🔹 ¿Qué significa "fine-tuned"?
+Fine-tuning es tomar un modelo preentrenado (como distilbert-base-uncased) y entrenarlo un poco más, pero ahora con datos específicos de una tarea, como:
+
+Clasificación de sentimientos
+
+Preguntas y respuestas (QA)
+
+NER (entidades)
+
+Detección de spam, etc.
+
+🧱 ¿De qué modelo base provienen las versiones afinadas?
+1. 🔸 distilbert-base-uncased-finetuned-sst-2-english
+📚 Tarea: análisis de sentimientos (dataset SST-2)
+
+🧬 Modelo base: distilbert-base-uncased
+
+2. 🔸 distilbert-base-cased-distilled-squad
+📚 Tarea: pregunta-respuesta (dataset SQuAD v1.1)
+
+🧬 Modelo base: distilbert-base-cased
+
+3. 🔸 distilbert-base-multilingual-cased-finetuned-ner
+📚 Tarea: reconocimiento de entidades nombradas (NER)
+
+🧬 Modelo base: distilbert-base-multilingual-cased
+
+🎯 Cómo identificarlo tú mismo
+En Hugging Face, los nombres siguen un patrón:
+
+php-template
+Copy
+Edit
+<modelo-base>-finetuned-<tarea>
+Entonces si ves:
+
+distilbert-base-cased-finetuned-squad: se basa en distilbert-base-cased
+
+distilbert-base-uncased-finetuned-sst-2-english: se basa en distilbert-base-uncased
+
+
+¿Qué es training loss y validation loss?
+Training loss: mide qué tan bien aprende el modelo con los datos que ya conoce (los de entrenamiento).
+
+Validation loss: mide qué tan bien funciona el modelo con datos nuevos (los que no ha visto antes).
+❗¿Qué pasa si...?
+Training loss = bajo
+Validation loss = alto
+
+Esto significa:
+
+👉 El modelo aprendió muy bien los ejemplos de práctica,
+pero...
+👉 Falla con ejemplos nuevos que nunca vio.
+🤖 Ejemplo real para novatos:
+Imagina que estás estudiando para un examen:
+
+Entrenamiento: Memorizaste todas las preguntas del libro (¡te las sabes todas!).
+
+Evaluación: El examen tiene preguntas parecidas, pero no exactamente las mismas.
+
+Si solo memorizaste y no entendiste el tema, en el examen real te confundes.
+
+➡️ Eso es overfitting (sobreajuste):
+Aprendiste los datos "de memoria", pero no sabes generalizar.
+📉 ¿Por qué es malo?
+El modelo parece “inteligente” durante el entrenamiento.
+
+Pero en la vida real (con datos nuevos), comete muchos errores.
+
+Es como un estudiante que saca 10/10 en la práctica, pero 4/10 en el examen 😬
+
+✅ ¿Qué se busca?
+Un modelo que tenga:
+
+Training loss bajo
+
+Validation loss también bajo
+
+➡️ Eso significa que aprendió bien y generaliza bien.
+
+
+
+
+

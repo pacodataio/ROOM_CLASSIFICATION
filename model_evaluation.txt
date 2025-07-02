@@ -1,0 +1,64 @@
+EVALUACIÓN DE MODELOS DE CLASIFICACIÓN
+=====================================
+
+Resultados de validación cruzada (6449 rows de entrenamiento):
+Naive Bayes:
+  Precisión CV: 0.7116 (±0.0108)
+  Tiempo de entrenamiento: 0.19 segundos
+
+Logistic Regression:
+  Precisión CV: 0.9879 (±0.0037)
+  Tiempo de entrenamiento: 1.31 segundos
+
+Random Forest:
+  Precisión CV: 0.9729 (±0.0042)
+  Tiempo de entrenamiento: 5.43 segundos
+
+Linear SVM:
+  Precisión CV: 0.9919 (±0.0030)
+  Tiempo de entrenamiento: 1.13 segundos
+
+SGDClassifier (log=LogReg):
+  Precisión CV: 0.9722 (±0.0053)
+  Tiempo de entrenamiento: 0.35 segundos
+
+Passive-Aggressive:
+  Precisión CV: 0.9930 (±0.0025)
+  Tiempo de entrenamiento: 0.28 segundos
+
+
+Mejor modelo: Passive-Aggressive
+Precisión en datos de prueba: 0.9917
+
+Informe de clasificación:
+                precision    recall  f1-score   support
+
+     APARTMENT       1.00      0.99      1.00       110
+   FAMILY ROOM       1.00      0.99      0.99       168
+        STUDIO       1.00      0.96      0.98        77
+   SHARED ROOM       0.98      0.98      0.98        62
+         SUITE       1.00      0.99      0.99       232
+  JUNIOR SUITE       1.00      1.00      1.00        91
+  PREMIUM ROOM       1.00      0.97      0.99       120
+   DELUXE ROOM       0.98      1.00      0.99       247
+ SUPERIOR ROOM       1.00      0.99      0.99       393
+QUADRUPLE ROOM       0.99      0.99      0.99        70
+   TRIPLE ROOM       1.00      1.00      1.00        44
+   DOUBLE ROOM       0.99      1.00      0.99       503
+ STANDARD ROOM       0.98      1.00      0.99       574
+  CLASSIC ROOM       1.00      0.99      0.99        73
+
+      accuracy                           0.99      2764
+     macro avg       0.99      0.99      0.99      2764
+  weighted avg       0.99      0.99      0.99      2764
+
+Nota: El informe de clasificación solo incluye las clases presentes en los datos de prueba (2764 rows).
+Clases presentes: 14 de 14
+
+Observaciones y recomendaciones:
+1. La precisión actual está por debajo del objetivo del 98%. Esto se debe principalmente al tamaño limitado de los datos de muestra.
+2. Para mejorar la precisión, se recomienda:
+   - Aumentar el conjunto de datos de entrenamiento
+   - Refinar las reglas de clasificación
+   - Implementar técnicas de aumento de datos
+   - Considerar modelos más avanzados de procesamiento de lenguaje natural
