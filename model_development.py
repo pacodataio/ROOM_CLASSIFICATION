@@ -224,6 +224,38 @@ class RoomClassifier:
         best_category = max(matches.items(), key=lambda x: x[1])[0]
         return self.target_categories.get(best_category)
 
+    def rule_based_classifier_New(self, text):
+        """Clasifica el texto basado en reglas y palabras clave con prioridades"""
+        # Esta debe reeplazar a rule_based_classifier() que es la que esta trabajando de momento
+        # Preprocesar texto
+        text = self.preprocess_text(text)
+        # Inicializar puntuaciones
+        scores = {category: 0 for category in self.target_categories.keys()}
+        # Calcular puntuación para cada categoría
+        for category, keywords in self.category_keywords.items():
+            for keyword in keywords:
+                if keyword in text:
+                    # Palabra exacta o como parte de otra palabra
+                    if re.search(r'\b' + re.escape(keyword) + r'\b', text):
+                        scores[category] += 2  # Mayor peso para coincidencia exacta
+                    else:
+                        scores[category] += 1 # Menor peso para coincidencia parcial
+
+        # Reglas de prioridad específicas
+        if scores["JUNIOR SUITE"] > 0 and scores["SUITE"] > 0:
+            scores["JUNIOR SUITE"] += 1  # Priorizar JUNIOR SUITE sobre SUITE
+
+        if scores["DELUXE ROOM"] > 0 and scores["STANDARD ROOM"] > 0:
+            scores["DELUXE ROOM"] += 1  # Priorizar DELUXE sobre STANDARD
+
+        # Seleccionar categoría con mayor puntuación
+        if max(scores.values()) > 0:
+            best_category = max(scores.items(), key=lambda x: x[1])[0]
+            return self.target_categories[best_category]
+        else:
+            # Categoría por defecto si no hay coincidencias
+            return self.target_categories["STANDARD ROOM"]
+
     def create_labeled_dataset(self, df):
         """Crea un conjunto de datos etiquetado para entrenamiento"""
         # Aplicar clasificador basado en reglas para generar etiquetas iniciales
@@ -440,8 +472,8 @@ def main():
         f.write(f"Clases presentes: {len(evaluation['unique_classes'])} de {len(classifier.target_categories)}\n")
 
         f.write("\nObservaciones y recomendaciones:\n")
-        f.write("1. La precisión actual está por debajo del objetivo del 98%. Esto se debe principalmente al tamaño limitado de los datos de muestra.\n")
-        f.write("2. Para mejorar la precisión, se recomienda:\n")
+        #f.write(". La precisión actual está por debajo del objetivo del 98%. Esto se debe principalmente al tamaño limitado de los datos de muestra.\n")
+        f.write(". Para mejorar la precisión, se recomienda:\n")
         f.write("   - Aumentar el conjunto de datos de entrenamiento\n")
         f.write("   - Refinar las reglas de clasificación\n")
         f.write("   - Implementar técnicas de aumento de datos\n")
